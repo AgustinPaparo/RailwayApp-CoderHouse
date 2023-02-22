@@ -14,6 +14,7 @@ import util from "util";
 import path from "path";
 import { fileURLToPath } from "url";
 import passport from "passport";
+import dotenv from "dotenv";
 import cluster from "cluster";
 import logger from "./utils/logers.js";
 
@@ -31,8 +32,10 @@ if (cluster.isPrimary) {
 		cluster.fork();
 	});
 } else {
-	const MONGO = process.env.MONGO;
-	const port = process.env.PORT;
+	dotenv.config();
+
+	const MONGO = process.env.MONGO || process.env.MONGO_URL;
+	const port = process.env.PORT || 8080;
 	const __filename = fileURLToPath(import.meta.url);
 	const __dirname = path.dirname(__filename);
 	const chat = new container();

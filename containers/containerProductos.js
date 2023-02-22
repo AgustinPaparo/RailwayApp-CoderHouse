@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 import models from "../models/models.js";
 import logger from "../utils/logers.js";
+import dotenv from "dotenv";
 
-const MONGO = process.env.MONGO;
+dotenv.config();
+
+const MONGO = process.env.MONGO || process.env.MONGO_URL;
 
 mongoose.set("strictQuery", false);
 mongoose.connect(
